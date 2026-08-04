@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro de Aprendices</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Centro de Biotecnologia Agropecuaria</h1>
+
+    <h2>Registro de Aprendices</h2>
+
+    <p>Conectado desde: {{request.remote_addr}}</p>
+
+
+    <form action="/registrar" method="POST">
+
+        <label>Nombre completo:</label>
+        <input 
+            type="text" 
+            name="nombre" 
+            required>
+
+
+        <label>Número de documento:</label>
+        <input 
+            type="text" 
+            name="documento" 
+            required>
+
+
+        <label>Número de ficha:</label>
+        <input 
+            type="text" 
+            name="ficha" 
+            required>
+
+
+        <button type="submit">
+            Registrar
+        </button>
+
+    </form>
+
+
+    <h2>Aprendices registrados</h2>
+
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Nombre completo</th>
+            <th>Documento</th>
+            <th>Ficha</th>
+            <th>Fecha</th>
+        </tr>
+
+
+        {% for aprendiz in aprendices %}
+
+        <tr>
+            <td>{{ aprendiz.id }}</td>
+            <td>{{ aprendiz.nombre_completo }}</td>
+            <td>{{ aprendiz.numero_documento }}</td>
+            <td>{{ aprendiz.ficha }}</td>
+            <td>{{ aprendiz.creado_en }}</td>
+        </tr>
+
+        {% endfor %}
+
+
+    </table>
+
+
+</div>
+
+</body>
+</html>
