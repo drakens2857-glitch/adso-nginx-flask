@@ -1,11 +1,15 @@
 services:
-  nginx:
-    image: nginx:alpine
-    container_name: proxy-nginx
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: proxy-manager
+    restart: always
     ports:
-      - "80:80"
+      - "80:80" #http
+      - "81:81" #administracion de la API
+      - "443:443" #https
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./npm_data:/data
+      - ./npm_letsencrypt:/etc/letsencrypt 
     depends_on:
       - app-backend
     networks:
@@ -23,10 +27,8 @@ services:
       - red-cba
 
   app-backend:
-    build: .
+    image: nicobell182857/adso-nginx-flask
     container_name: app-backend
-    volumes:
-      - .:/home/myapp
     environment:
       FLASK_ENV: development
       MYSQL_ROOT_PASSWORD: 123456
