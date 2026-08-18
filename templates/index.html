@@ -1,82 +1,93 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Registro de Aprendices</title>
     <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        .mensaje-exito {
+            background-color: #e8f5e9;
+            border: 2px solid #4caf50;
+            color: #2e7d32;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h1>Centro de Biotecnologia Agropecuaria</h1>
+        <div class="mensaje-exito">
+            ✅ Conexión exitosa a la base de datos
+        </div>
 
-    <h2>Registro de Aprendices</h2>
+        <h1>Centro de Biotecnologia Agropecuaria</h1>
 
-    <p>Conectado desde: {{request.remote_addr}}</p>
+        <h2>Registro de Aprendices</h2>
 
-
-    <form action="/registrar" method="POST">
-
-        <label>Nombre completo:</label>
-        <input 
-            type="text" 
-            name="nombre" 
-            required>
+        <p>Conectado desde: {{request.remote_addr}}</p>
 
 
-        <label>Número de documento:</label>
-        <input 
-            type="text" 
-            name="documento" 
-            required>
+        <form action="/registrar" method="POST">
+
+            <label>Nombre completo:</label>
+            <input type="text" name="nombre" required>
 
 
-        <label>Número de ficha:</label>
-        <input 
-            type="text" 
-            name="ficha" 
-            required>
+            <label>Número de documento:</label>
+            <input type="text" name="documento" required>
 
 
-        <button type="submit">
-            Registrar
-        </button>
-
-    </form>
+            <label>Número de ficha:</label>
+            <input type="text" name="ficha" required>
 
 
-    <h2>Aprendices registrados</h2>
+            <button type="submit">
+                Registrar
+            </button>
+
+        </form>
 
 
-    <table>
-
-        <tr>
-            <th>ID</th>
-            <th>Nombre completo</th>
-            <th>Documento</th>
-            <th>Ficha</th>
-            <th>Fecha</th>
-        </tr>
+        <h2>Aprendices registrados</h2>
 
 
-        {% for aprendiz in aprendices %}
+        <table>
 
-        <tr>
-            <td>{{ aprendiz.id }}</td>
-            <td>{{ aprendiz.nombre_completo }}</td>
-            <td>{{ aprendiz.numero_documento }}</td>
-            <td>{{ aprendiz.ficha }}</td>
-            <td>{{ aprendiz.creado_en }}</td>
-        </tr>
-
-        {% endfor %}
+            <tr>
+                <th>ID</th>
+                <th>Nombre completo</th>
+                <th>Documento</th>
+                <th>Ficha</th>
+                <th>Fecha</th>
+            </tr>
 
 
-    </table>
+            {% for aprendiz in aprendices %}
+
+            <tr>
+                <td>{{ aprendiz.id }}</td>
+                <td>{{ aprendiz.nombre_completo }}</td>
+                <td>{{ aprendiz.numero_documento }}</td>
+                <td>{{ aprendiz.ficha }}</td>
+                <td>{{ aprendiz.creado_en }}</td>
+            </tr>
+
+            {% endfor %}
 
 
-</div>
+        </table>
+
+
+    </div>
 
 </body>
+
 </html>

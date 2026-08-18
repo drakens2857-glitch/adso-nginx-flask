@@ -4,10 +4,9 @@ import mysql.connector
 # Crear la aplicación Flask
 sample = Flask(__name__)
 
-# Función para conectar a la base de datos MySQL
 def conectar():
     return mysql.connector.connect(
-        host="servidor-bd",      # Nombre del servicio MySQL en docker-compose
+        host="servidor-bd",      
         user="root",
         password="123456",
         database="adso_db"
@@ -65,7 +64,6 @@ def registrar():
 
     return redirect("/")
 
-# Ejecutar la aplicación
 if __name__ == "__main__":
     sample.run(
         host="0.0.0.0",
