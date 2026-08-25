@@ -1,16 +1,16 @@
 services:
+
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: proxy-manager
     restart: always
     ports:
-      - "80:80"
-      - "81:81"
-      - "443:443"
-
+      - "80:80" # http
+      - "81:81" # administracion
+      - "443:443" # https
     volumes:
       - ./npm_data:/data
-      - ./npm_letsencrypt:/etc/letsencrypt 
+      - ./npm_letsencrypt:/etc/letsencrypt
     depends_on:
       - app-backend
     networks:
@@ -28,7 +28,7 @@ services:
       - red-cba
 
   app-backend:
-    image: frankynvillalba/adso-nginx-flask:v2.0
+    image: nicobell182857/adso-nginx-flask
     container_name: app-backend
     environment:
       FLASK_ENV: development
@@ -39,8 +39,24 @@ services:
     networks:
       - red-cba
 
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime-kuma-data:/app/data
+    networks:
+      - red-cba
+
 networks:
   red-cba:
+    name: red-cba
 
 volumes:
   mysql-data:
+    name: mysql-data
+
+  uptime-kuma-data:
+    name: uptime-kuma-data
