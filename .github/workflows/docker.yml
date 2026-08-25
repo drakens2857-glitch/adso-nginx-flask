@@ -1,16 +1,37 @@
-name: Docker CI
+name: Publicar Imagen en Docker Hub
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main", "master" ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Descargar codigo
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t proceso .
+      - name: Iniciar sesion en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Construir y subir imagen
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: nicobell182857/adso-nginx-flask:latest
+
+      - name: Desplegar en servidor cloud 
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd ~/adso-nginx-flask
+            docker compose pull app-backend
+            docker compose up -d
