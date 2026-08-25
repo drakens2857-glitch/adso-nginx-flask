@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  #ejecutar pruebas
-
+  # Job 1: Ejecutar pruebas
   test:
     runs-on: ubuntu-latest
     steps:
@@ -28,9 +27,9 @@ jobs:
       - name: Ejecutar pruebas con pytest
         run: pytest
 
-  #contruir y deplegar
+  # Job 2: Construir y desplegar (depende de que 'test' pase con éxito)
   build-and-deploy:
-  needs: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Descargar codigo
@@ -49,7 +48,7 @@ jobs:
           push: true
           tags: nicobell182857/adso-nginx-flask:latest
 
-      - name: Desplegar en servidor cloud 
+      - name: Desplegar en servidor cloud
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
