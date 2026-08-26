@@ -78,4 +78,12 @@ if __name__ == "__main__":
         host=host_env,
         port=5000,
         debug=debug_env
+<<<<<<< HEAD
     )
+=======
+<<<<<<< HEAD
+    )
+=======
+    )
+>>>>>>> 287d6d9 (Fix: correccion de seguridad y configuracion CI/CD)
+>>>>>>> 7e94263 (correccion yml)
