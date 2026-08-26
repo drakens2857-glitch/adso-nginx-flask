@@ -59,8 +59,4 @@ volumes:
     name: mysql-data
 
   uptime-kuma-data:
-<<<<<<< HEAD
     name: uptime-kuma-data
-=======
-    name: uptime-kuma-data
->>>>>>> 8cc832b39dbbfc2c77b0e48d2771f4118d084ca8
