@@ -21,4 +21,4 @@ def test_main_route_success(mock_conectar, client):
 
     response = client.get('/')
 
-    assert response.status_code == 200
+    assert response.status_code == 200  # nosec B101
