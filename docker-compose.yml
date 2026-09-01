@@ -64,10 +64,10 @@ services:
 networks:
   red-cba:
     name: red-cba
+    external: true
 
 volumes:
   mysql-data:
     name: mysql-data
-
   uptime-kuma-data:
     name: uptime-kuma-data
